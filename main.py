@@ -32,6 +32,8 @@ tarefas = []
 # =====================================================================
 
 def adicionar_tarefa(titulo, prioridade="media"):
+    tarefas.append({'titulo':titulo,'concluida':False,'prioridade':prioridade})
+    print(f "tarefa {titulo} adicionada")
     """
     Cria uma nova tarefa e adiciona à lista `tarefas`.
 
