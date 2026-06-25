@@ -58,8 +58,7 @@ def listar_tarefas():
         1. [ ] Estudar Python (prioridade: alta)
         2. [X] Lavar a louça (prioridade: baixa)
     """
-    # TODO (Aula 1): trate o caso de lista vazia
-    # TODO (Aula 1): percorra a lista de tarefas e exiba cada uma formatada
+    
 pass
 
 
@@ -68,6 +67,13 @@ pass
 # =====================================================================
 
 def concluir_tarefa(indice):
+    if indice < 1 or indice > len(tarefas):
+        print("numero de tarefas invalido")
+        return  
+    else:
+        for index, itens in enumerate(tarefas, start=1)
+            if index
+
     """
     Marca como concluída a tarefa na posição `indice` (começando em 1).
 
@@ -89,6 +95,12 @@ def concluir_tarefa(indice):
 
 
 def remover_tarefa(indice):
+    if indice < 1 or indice > len(tarefas):
+        print("numero de tarefas invalido")
+    else
+        for index in enumerate(tarefas, start=1)
+            tarefas.pop(index - 1)
+            print("tarefa removida")
     """
     Remove da lista a tarefa na posição `indice` (começando em 1).
 
