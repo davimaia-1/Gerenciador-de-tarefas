@@ -1,0 +1,185 @@
+import json
+
+ARQUIVO = "livros.json"
+
+
+# Carrega os livros salvos no arquivo quando o programa inicia
+def carregar_livros():
+    try:
+        with open(ARQUIVO, "r", encoding="utf-8") as arquivo:
+            return json.load(arquivo)
+    except FileNotFoundError:
+        return []
+
+
+# Salva a lista de livros no arquivo
+def salvar_livros(livros):
+    with open(ARQUIVO, "w", encoding="utf-8") as arquivo:
+        json.dump(livros, arquivo, indent=4, ensure_ascii=False)
+
+
+# Cadastra um novo livro e retorna a lista atualizada
+def cadastrar_livro(livros):
+    titulo = input("Digite o título do livro: ")
+    autor = input("Digite o autor do livro: ")
+    ano = input("Digite o ano de publicação: ")
+    isbn = input("Digite o código/ISBN: ")
+
+    novo_livro = {
+        "titulo": titulo,
+        "autor": autor,
+        "ano": ano,
+        "isbn": isbn,
+        "status": "disponível"
+    }
+
+    livros.append(novo_livro)
+    salvar_livros(livros)
+
+    return livros
+
+
+# Procura um livro pelo título ou autor
+def buscar_livro(livros, pesquisa):
+    encontrados = []
+
+    for livro in livros:
+        if pesquisa.lower() in livro["titulo"].lower() or pesquisa.lower() in livro["autor"].lower():
+            encontrados.append(livro)
+
+    return encontrados
+
+
+# Lista todos os livros cadastrados
+def listar_livros(livros):
+    if len(livros) == 0:
+        print("\nNenhum livro cadastrado.")
+    else:
+        for livro in livros:
+            print("\n-------------------------")
+            print("Título:", livro["titulo"])
+            print("Autor:", livro["autor"])
+            print("Ano:", livro["ano"])
+            print("ISBN:", livro["isbn"])
+            print("Status:", livro["status"])
+
+    return livros
+
+
+# Realiza o empréstimo de um livro
+def emprestar_livro(livros, titulo):
+    for livro in livros:
+        if livro["titulo"].lower() == titulo.lower():
+            if livro["status"] == "disponível":
+                livro["status"] = "emprestado"
+                salvar_livros(livros)
+                return True
+            else:
+                return False
+
+    return False
+
+
+# Realiza a devolução de um livro
+def devolver_livro(livros, titulo):
+    for livro in livros:
+        if livro["titulo"].lower() == titulo.lower():
+            if livro["status"] == "emprestado":
+                livro["status"] = "disponível"
+                salvar_livros(livros)
+                return True
+            else:
+                return False
+
+    return False
+
+
+# Ordena os livros conforme a escolha do usuário
+def ordenar_livros(livros, criterio):
+    if criterio == "titulo":
+        livros.sort(key=lambda livro: livro["titulo"].lower())
+
+    elif criterio == "autor":
+        livros.sort(key=lambda livro: livro["autor"].lower())
+
+    elif criterio == "ano":
+        livros.sort(key=lambda livro: livro["ano"])
+
+    salvar_livros(livros)
+
+    return livros
+
+
+# Programa principal
+livros = carregar_livros()
+
+while True:
+    print("\n===== SISTEMA DE BIBLIOTECA =====")
+    print("1 - Cadastrar livro")
+    print("2 - Emprestar livro")
+    print("3 - Devolver livro")
+    print("4 - Listar livros")
+    print("5 - Buscar livro")
+    print("6 - Ordenar livros")
+    print("7 - Sair")
+
+    opcao = input("Escolha uma opção: ")
+
+    if opcao == "1":
+        livros = cadastrar_livro(livros)
+        print("Livro cadastrado com sucesso!")
+
+    elif opcao == "2":
+        titulo = input("Digite o título do livro para empréstimo: ")
+
+        if emprestar_livro(livros, titulo):
+            print("Empréstimo realizado!")
+        else:
+            print("Livro não encontrado ou já está emprestado.")
+
+    elif opcao == "3":
+        titulo = input("Digite o título do livro para devolução: ")
+
+        if devolver_livro(livros, titulo):
+            print("Devolução realizada!")
+        else:
+            print("Livro não encontrado ou já está disponível.")
+
+    elif opcao == "4":
+        listar_livros(livros)
+
+    elif opcao == "5":
+        pesquisa = input("Digite o título ou autor para buscar: ")
+
+        resultado = buscar_livro(livros, pesquisa)
+
+        if resultado:
+            listar_livros(resultado)
+        else:
+            print("Nenhum livro encontrado.")
+
+    elif opcao == "6":
+        print("\nOrdenar por:")
+        print("1 - Título")
+        print("2 - Autor")
+        print("3 - Ano")
+
+        escolha = input("Escolha: ")
+
+        if escolha == "1":
+            ordenar_livros(livros, "titulo")
+        elif escolha == "2":
+            ordenar_livros(livros, "autor")
+        elif escolha == "3":
+            ordenar_livros(livros, "ano")
+        else:
+            print("Opção inválida.")
+
+        print("Livros ordenados!")
+
+    elif opcao == "7":
+        print("Encerrando sistema...")
+        break
+
+    else:
+        print("Opção inválida. Escolha novamente.")

@@ -1,72 +1,73 @@
-# Gerenciador de Tarefas — Mini Projeto (Python Puro)
+"""
+# Sistema de Gerenciamento de Biblioteca
 
-Bem-vindo(a) ao mini projeto de 3 aulas! Vocês vão construir, passo a
-passo, um gerenciador de tarefas que roda no terminal — sem nenhuma
-biblioteca externa, só Python puro.
+## Descrição do projeto
+Este projeto é um sistema desenvolvido em Python para controlar o acervo
+de uma biblioteca. Ele permite cadastrar livros, realizar empréstimos,
+devoluções, buscas, listagens e ordenação dos livros cadastrados.
 
-## Como este repositório funciona
+Os dados dos livros são armazenados em uma lista de dicionários durante
+a execução e salvos em um arquivo JSON para manter as informações mesmo
+após o programa ser fechado.
 
-Existe **um único arquivo**, `main.py`, que vocês vão completar ao longo
-das 3 aulas. Não tem branch, não tem pasta separada — é sempre o mesmo
-arquivo crescendo.
+---
 
-Cada aula tem um arquivo de instruções próprio:
+## Como executar o programa
 
-| Arquivo      | Quando usar                                          |
-|--------------|-------------------------------------------------------|
-| `AULA1.md`   | O que fazer na primeira aula                          |
-| `AULA2.md`   | O que fazer na segunda aula                           |
-| `AULA3.md`   | O que fazer na terceira aula                          |
+1. Ter o Python 3 instalado no computador.
+2. Abrir o terminal na pasta do projeto.
+3. Executar o comando:
 
-Abram o arquivo da aula do dia, leiam o objetivo e procurem em `main.py`
-os comentários `# TODO` — é ali que vocês vão escrever código.
+python biblioteca.py
 
-## Como começar
+4. Utilizar o menu apresentado no terminal escolhendo as opções desejadas.
 
-```bash
-git clone https://github.com/leandro-abilio/mini-projeto-todo-list.git
-cd mini-projeto-todo-list
-```
+O arquivo livros.json será criado automaticamente para salvar os dados.
 
-Abra `AULA1.md` para começar.
+---
 
-## Como rodar o programa
+## Principais funcionalidades
 
-```bash
-python3 main.py
-```
+- Cadastro de livros com:
+  - Título
+  - Autor
+  - Ano de publicação
+  - Código/ISBN
+  - Status (disponível ou emprestado)
 
-(ou `python main.py` no Windows)
+- Registro de empréstimos de livros.
+- Registro de devoluções.
+- Listagem de todos os livros cadastrados.
+- Busca de livros por título ou autor.
+- Ordenação dos livros por título, autor ou ano.
+- Salvamento e carregamento dos dados em arquivo.
 
-## Salvando o progresso de cada aula
+---
 
-Ao final de cada aula, façam commit do que completaram:
+## Requisitos técnicos aplicados
 
-```bash
-git add main.py
-git commit -m "Aula 1 concluida"
-```
+- Menu principal utilizando if/elif/else:
+  Aplicado no controle das opções do sistema.
 
-Isso não é obrigatório para o programa funcionar, mas é uma boa prática
-e ajuda a registrar a evolução do projeto. Tudo fica no mesmo arquivo,
-então não precisam trocar de branch nem de pasta — só continuem editando
-`main.py` na aula seguinte.
+- Estrutura de repetição while:
+  Utilizada para manter o menu funcionando até a opção "sair".
 
-## Requisitos
+- Funções próprias com parâmetros e retorno:
+  Foram utilizadas funções como:
+    - cadastrar_livro()
+    - buscar_livro()
+    - listar_livros()
+    - emprestar_livro()
+    - devolver_livro()
+    - ordenar_livros()
 
-- Python 3.8 ou superior
-- Nenhuma biblioteca externa (apenas a biblioteca padrão)
+- Lista de dicionários:
+  Os livros são armazenados em uma lista, onde cada item é um dicionário
+  contendo as informações do livro.
 
-## Estrutura do projeto
+- Persistência de dados em arquivo:
+  Utilização do arquivo livros.json para salvar e recuperar os dados.
 
-```
-.
-├── main.py        # o programa (vocês vão completar)
-├── AULA1.md       # instruções da aula 1
-├── AULA2.md       # instruções da aula 2
-├── AULA3.md       # instruções da aula 3
-├── README.md      # este arquivo
-└── .gitignore
-```
+- Biblioteca padrão do Python:
+  Foi utilizada apenas a biblioteca json, sem instalação de pacotes externos.
 
-Bom projeto! 🚀
